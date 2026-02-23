@@ -1,0 +1,10 @@
+https://medium.com/@sofia.huppertz/cpp09-school42-1efa42df7803
+
+https://codesandbox.io/p/github/skyheis/42_cpp_modules/main?file=%2Fcpp09%2Fex00%2FBitcoinExchange.hpp
+
+https://github.com/mota494/CPP_Modules/blob/main/CPP09/ex00/BitcoinExchange.cpp
+
+https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91
+
+https://github.com/leske42/CPP09
+
