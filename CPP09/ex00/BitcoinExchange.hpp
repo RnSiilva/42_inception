@@ -6,7 +6,7 @@
 /*   By: resilva <resilva@student.42porto.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 23:28:37 by resilva           #+#    #+#             */
-/*   Updated: 2026/02/23 21:43:44 by resilva          ###   ########.fr       */
+/*   Updated: 2026/04/29 22:16:08 by resilva          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ class BitcoinExchange {
 
 		// Aux. functions
 		bool	isValidDate(const std::string &date); //Validate YYYY-MM-DD
-		bool	isValidValue(float value); // Validate 0 to 1000
+		bool	isValidValue(const std::string &value); // Validate 0 to 1000
 		float	getExchangeRate(const std::string &date); // Search in map
+		void	displayResult(const std::string &date, float amount);
 };
