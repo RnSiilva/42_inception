@@ -6,11 +6,11 @@
 #    By: resilva <resilva@student.42porto.com>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/12/06 13:50:56 by resilva           #+#    #+#              #
-#    Updated: 2026/04/30 02:33:30 by resilva          ###   ########.fr        #
+#    Updated: 2026/05/07 17:56:42 by resilva          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = btc
+NAME = PmergeMe
 
 # ------------------------------ Colors ------------------------------
 BOLD_PURPLE	=	\033[1;35m
@@ -30,7 +30,7 @@ CXX = c++
 RM = rm -f
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98 -g
 DN = /dev/null 2>&1
-SRC = main.cpp BitcoinExchange.cpp
+SRC = main.cpp PmergeMe.cpp
 
 OBJ = ${SRC:.cpp=.o}
 

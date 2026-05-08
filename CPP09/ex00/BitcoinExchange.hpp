@@ -6,7 +6,7 @@
 /*   By: resilva <resilva@student.42porto.com>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/07 23:28:37 by resilva           #+#    #+#             */
-/*   Updated: 2026/04/29 22:16:08 by resilva          ###   ########.fr       */
+/*   Updated: 2026/04/30 02:36:59 by resilva          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <map>
 #include <fstream>
 #include <sstream>
+#include <cstdlib>
 
 class BitcoinExchange {
 	private:
@@ -23,7 +24,7 @@ class BitcoinExchange {
 		
 	public:
 		// OCF
-		BitcoinExchange();
+		BitcoinExchange(const std::string &dbFile);
 		BitcoinExchange(const BitcoinExchange &copy);
 		BitcoinExchange &operator=(const BitcoinExchange &other);
 		~BitcoinExchange();
@@ -35,6 +36,5 @@ class BitcoinExchange {
 		// Aux. functions
 		bool	isValidDate(const std::string &date); //Validate YYYY-MM-DD
 		bool	isValidValue(const std::string &value); // Validate 0 to 1000
-		float	getExchangeRate(const std::string &date); // Search in map
-		void	displayResult(const std::string &date, float amount);
+		void	displayResult(const std::string &date, float amount); // Search in map and display the result
 };
