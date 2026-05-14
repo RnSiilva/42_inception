@@ -1,0 +1,58 @@
+84
+28
+14:29
+
+
+docker compose down -v
+docker rmi $(docker images -qa)
+docker compose up --build
+ 
+ ---
+
+openssl s_client -connect [localhost:443](http://localhost:443)ou openssl s_client -connect <your_domain>[:443](http://localhost:443): Expõe detalhes do certificado e protocolos suportados para a conexão estabelecida. > - O comando exibirá muitas informações. Procure as linhas abaixo para ver os detalhes da conexão:
+Protocolo: TLSv1.3
+Cifra: TLS_AES_256_GCM_SHA384
+
+ ---
+ 
+docker exec -it nginx nginx -s reload ou docker-compose restart nginx: Reinicia o serviço NGINX para aplicar as alterações de configuração diretamente ou via Docker Compose
+
+ ---
+ 
+Altere o URL previamente definido para localhost no script de criação do WordPress wp-install.shpara o domínio especificado nos requisitos do projeto, conforme mostrado abaixo:
+
+./wp-cli.phar core install --url=localhost --title=inception --admin_user=ivbatist --admin_password=1234567890 --admin_email=ivbatist@inception.com --allow-root
+./wp-cli.phar core install --url=ivbatist.42.fr --title=inception --admin_user=ivbatist --admin_password=1234567890 --admin_email=ivbatist@inception.com --allow-root
+Adicione o seguinte ao host/VM no /etc/hostsarquivo, informando ao seu sistema operacional que todo o tráfego para ivbatist.42.frdeve ser tratado como tráfego para localhost(127.0.0.1):
+
+127.0.0.1       ivbatist.42.fr
+👉🏼 Este comando deve ser incluído no Makefile para avaliar se esta linha está presente no arquivo original e adicioná-la caso contrário.
+
+ ---
+ 
+./wp-cli.phar config create --dbname=${DB_NAME} --dbuser=${DB_USER} --dbpass=${DB_PASSWORD} --dbhost=${DB_HOST} --allow-root
+
+./wp-cli.phar config create --dbname=wordpress --dbuser=wpuser --dbpass=password --dbhost=mariadb --allow-root
+./wp-cli.phar core install --url=resilva.42.fr --title=inception --admin_user=resilva --admin_password=1234567890 --admin_email=resilva@inception.com --allow-root
+
+---
+
+docker logs wordpress
+
+# Para o WordPress
+docker exec -it wordpress ls -l /run/secrets
+
+# Para ver o conteúdo de um segredo (ex: senha do banco)
+docker exec -it wordpress cat /run/secrets/db_password
+
+---
+
+DUVIDAS:
+Se eu deixar um comentario no site, e rodar make stop, depois rodar make up, o comentario sumiu
+Mas se ao inves de make stop rodar make down, e depois make up, o comentario ainda esta la, esse eh o correto?
+
+Devo conseguir configurar alguma coisa do site?
+Como entrar como admin
+
+Corrigir README.md, USER_DOC.md e DEV_DOC.md****
+

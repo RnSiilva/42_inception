@@ -1,0 +1,78 @@
+services:
+  nginx:
+    image: nginx:v1.0
+    build: 
+      context: requirements/nginx/.
+    container_name: nginx
+    restart: on-failure
+    depends_on:
+      - wordpress
+    networks:
+      - inception
+    ports:
+      - "443:443"
+    volumes:
+      - wordpress:/var/www/html
+
+  wordpress:
+      image: wordpress:v1.0
+      build: requirements/wordpress/.
+      container_name: wordpress
+      restart: on-failure
+      depends_on:
+        - mariadb
+      networks:
+        - inception
+      expose:
+        - "9000"
+      volumes:
+        - wordpress:/var/www/html
+      env_file:
+        - .env
+      secrets:
+        - db_password
+        - wp_admin_password
+
+  mariadb:
+      image: mariadb:v1.0
+      build: requirements/mariadb/.
+      container_name: mariadb
+      restart: on-failure
+      networks:
+        - inception
+      expose:
+        - "3306"
+      volumes:
+        - mariadb:/var/lib/mysql
+      env_file:
+        - .env
+      secrets:
+        - db_password
+        - db_root_password
+
+
+volumes:
+  wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${HOME}/data/wordpress
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: ${HOME}/data/mariadb
+
+networks:
+  inception:
+    driver: bridge
+
+secrets:
+  db_password:
+    file: ../secrets/db_password.txt
+  db_root_password:
+    file: ../secrets/db_root_password.txt
+  wp_admin_password:
+    file: ../secrets/credentials.txt
