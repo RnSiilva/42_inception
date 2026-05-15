@@ -1,0 +1,58 @@
+IMPORTANTE: Para entrega final, os arquivos devem estar dentro da raiz do repositorio clonado (Makefile, /srcs/ e secret[se existir] -> .env fica dentro da /srcs/)
+
+ ---
+ 
+COMANDOS BASICOS:
+
+(Derrubar os containers): docker compose down -v 
+(Apaga as imagens): docker rmi $(docker images -qa) 
+(Monta os containers): docker compose up --build
+
+ ---
+ 
+PARA VER LOGS:
+docker logs <container_name>
+
+VER A PASTA SECRETS DENTRO DO WORDPRESS
+docker exec -it wordpress ls -l /run/secrets
+
+PARA VER O CONTEUDO (ex: senha do banco)
+docker exec -it wordpress cat /run/secrets/db_password
+
+ENTRAR NO TERMINAL DE ALGUM CONTAINER
+docker exec -it <container_name> /bin/bash
+
+VERIFICAR OS COMENTARIOS
+docker exec -it mariadb mysql -u root -p -D dbsite -e "SELECT comment_author, comment_content, comment_approved FROM wp_comments;"
+
+REINICIAR UM CONTAINER E APLICAR ALTERACOES
+`docker exec -it nginx nginx -s reload` ou `docker-compose restart nginx`: Reinicia o serviço NGINX para aplicar as alterações de configuração diretamente ou via Docker Compose
+
+ACESSAR PORTAS PELO TERMINAL
+curl -v -k https://resilva.42.fr:8443
+
+	(-v: (Verbose) mostra todo o aperto de mão (handshake).
+	-k: (Insecure) ignora o fato do seu certificado ser auto-assinado (Self-Signed).)
+
+
+ ---
+
+ANOTACOES:
+1. O que é o Certificado SSL/TLS?
+O SSL (Secure Sockets Layer) e seu sucessor TLS (Transport Layer Security) são protocolos que criptografam a comunicação entre o navegador do usuário e o seu servidor (Nginx).
+    No Inception: Como não temos um domínio registrado "de verdade" com autoridade certificadora (como Let's Encrypt), nós criamos um Self-Signed Certificate (Certificado Auto-assinado) usando a ferramenta openssl.
+    Para que serve: Garante que ninguém no meio do caminho consiga ler os dados (senhas, cookies) que viajam entre você e o site.
+    
+    
+2. O que o depends_on faz? (Ordem de Inicialização)
+O depends_on serve apenas para ditar a ordem de subida dos containers.
+    No seu código: Você está dizendo: "Docker, não tente rodar o WordPress antes do MariaDB estar pronto" e "Não suba o Nginx antes do WordPress".
+    O que ele NÃO faz: Ele não cria a conexão de rede e não garante que o serviço dentro do container (o banco de dados) já terminou de carregar, apenas que o container "pai" foi iniciado.
+    depends_on (Ordem): É o "Cronograma". Garante que o banco de dados comece a ligar antes da aplicação que depende dele.
+
+3. Bind Mounts:
+"Usei Bind Mounts porque o subject do projeto exige especificamente que os dados persistam em um diretório fixo no meu sistema hospedeiro (/home/login/data). O Bind Mount é a ferramenta ideal para essa necessidade de transparência e controle manual sobre o local exato onde os ficheiros do WordPress e da Base de Dados residem."
+
+ ---
+ 
+
